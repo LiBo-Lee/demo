@@ -9,9 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 //MapperScan让mybatils扫描mapper文件夹
 @MapperScan("com.example.demo.mapper")
 public class DemoApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 	}
-
 }

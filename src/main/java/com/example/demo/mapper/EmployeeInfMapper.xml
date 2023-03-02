@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.EmployeeInfMapper">
+    <sql id="Base_Column_List">
+        id, dept_id, job_id, name, card_id, address, post_code, tel, phone, qq_num, email, sex, party, birthday, race,
+        education, speciality, hobby, remark, create_date, password, update_date
+    </sql>
+    <select id="listEmployeeInfs" resultType="com.example.demo.entity.EmployeeInf">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee_inf
+        ORDER BY id
+    </select>
+    <select id="getEmployeeInfByNameCardId" resultType="com.example.demo.entity.EmployeeInf">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM employee_inf
+        WHERE name = #{name}
+        <if test="cardId != null and cardId != ''">
+            AND card_id = #{cardId}
+        </if>
+        <if test="cardId == null or cardId == ''">
+            AND ISNULL(card_id) = 0
+        </if>
+    </select>
+    <select id="countEmployeeById" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM employee_inf
+        WHERE id = #{id}
+    </select>
+    <select id="countEmployeeByNameCardId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM employee_inf a
+        WHERE a.name = #{name}
+        <if test="cardId != null and cardId != ''">
+            AND a.card_id = #{cardId}
+        </if>
+        <if test="cardId == null or cardId == ''">
+            AND ISNULL(a.card_id) = 0
+        </if>
+    </select>
+    <insert id="insertEmployeeInf" parameterType="com.example.demo.entity.EmployeeInf">
+        INSERT INTO employee_inf(dept_id, job_id, name, card_id, address, post_code, tel, phone, qq_num, email, sex,
+                                 party, birthday, race, education, speciality, hobby, remark, create_date, password, update_date)
+        VALUES(#{emp.deptId}, #{emp.jobId}, #{emp.name}, #{emp.cardId}, #{emp.address},
+               #{emp.postCode}, #{emp.tel}, #{emp.phone}, #{emp.qqNum}, #{emp.email}, #{emp.sex},
+               #{emp.party}, #{emp.birthday}, #{emp.race}, #{emp.education}, #{emp.speciality},
+               #{emp.hobby}, #{emp.remark}, #{emp.createDate}, #{emp.password}, #{emp.updateDate})
+    </insert>
+    <delete id="deleteEmployeeInf" parameterType="java.lang.Long">
+        DELETE FROM employee_inf WHERE id = #{id}
+    </delete>
+    <update id="updateEmployeeInf" parameterType="com.example.demo.entity.EmployeeInf">
+        UPDATE employee_inf
+        SET dept_id = #{emp.deptId}, job_id = #{emp.jobId}, name = #{emp.name}, card_id = #{emp.cardId}, address = #{emp.address},
+            post_code = #{emp.postCode}, tel = #{emp.tel}, phone = #{emp.phone}, qq_num = #{emp.qqNum}, email = #{emp.email},
+            sex = #{emp.sex}, party = #{emp.party}, birthday = #{emp.birthday}, race = #{emp.race}, education = #{emp.education},
+            speciality = #{emp.speciality}, hobby = #{emp.hobby}, remark = #{emp.remark}, password = #{emp.password}, update_date = #{emp.updateDate}
+        WHERE id = #{emp.id}
+    </update>
+</mapper>

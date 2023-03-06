@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.DeptInfMapper">
+    <sql id="Base_Column_List">
+        id, name, remark
+    </sql>
+    <select id="countDeptById" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM dept_inf
+        WHERE id = #{id}
+    </select>
+    <select id="countDeptByName" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM dept_inf
+        WHERE name = #{name}
+    </select>
+    <delete id="deleteDeptByName" parameterType="java.lang.String">
+        DELETE FROM dept_inf WHERE name = #{name}
+    </delete>
+</mapper>

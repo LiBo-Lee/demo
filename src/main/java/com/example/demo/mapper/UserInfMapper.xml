@@ -5,15 +5,14 @@
     <sql id="Base_Column_List">
         id, loginname, password, status, createdate, username
     </sql>
-    <select id="getUserList" resultType="com.example.demo.entity.UserInf">
-        SELECT
-        <include refid="Base_Column_List" />
-        FROM user_inf
-        ORDER BY id
-    </select>
     <select id="countUserByLoginName" resultType="integer">
         SELECT COUNT(loginname)loginname FROM user_inf
         WHERE loginname=#{loginname}
+    </select>
+    <select id="countUserByNP" resultType="integer">
+        SELECT COUNT(loginname)loginname FROM user_inf
+        WHERE loginname = #{loginname}
+          AND password = #{password}
     </select>
     <insert id="insertUserInf" parameterType="com.example.demo.mapper.UserInfMapper">
         INSERT INTO user_inf(loginname, password, status, createdate, username)

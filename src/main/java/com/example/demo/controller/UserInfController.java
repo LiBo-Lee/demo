@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.example.demo.entity.RespBean;
 import com.example.demo.entity.UserInf;
-import com.example.demo.exception.BusinessException;
 import com.example.demo.service.impl.UserInfServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * @Description 用户信息
+ * @description 用户信息
  * @author LB
  * @since 2023-02-25
  */
@@ -23,20 +23,17 @@ import javax.annotation.Resource;
 public class UserInfController {
     @Resource
     private UserInfServiceImpl userInfService;
+
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息", httpMethod = "GET")
     @GetMapping("/listUser")
     public RespBean getUserList() {
-        return userInfService.getUserList();
-    }
-
-    @ApiOperation(value = "获取用户信息-New", notes = "获取用户信息-New", httpMethod = "GET")
-    @GetMapping("/listsUser")
-    public RespBean getUserLists() {
+        try {
+            StpUtil.checkLogin();
+        } catch (Exception e) {
+            return RespBean.error("请登录后使用！");
+        }
         return RespBean.ok("获取成功！", userInfService.list());
     }
-
-//    @GetMapping("/listUserByPage")
-//    public RespBean getUserListByPage(@RequestParam(""))
 
     @ApiOperation(value = "新增用户信息", notes = "新增用户信息", httpMethod = "POST")
     @PostMapping("/insertUser")

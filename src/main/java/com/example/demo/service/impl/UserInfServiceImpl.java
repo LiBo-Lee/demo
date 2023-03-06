@@ -1,6 +1,5 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.EmployeeInf;
 import com.example.demo.entity.RespBean;
 import com.example.demo.entity.UserInf;
 import com.example.demo.mapper.UserInfMapper;
@@ -24,11 +23,6 @@ import java.util.Date;
 public class UserInfServiceImpl extends ServiceImpl<UserInfMapper, UserInf> implements IUserInfService {
     @Autowired
     private UserInfMapper userInfMapper;
-
-    @Override
-    public RespBean getUserList() {
-        return RespBean.ok("获取成功！", userInfMapper.getUserList());
-    }
 
     @Override
     public RespBean insertUserInf(UserInf userInf) {
@@ -63,7 +57,7 @@ public class UserInfServiceImpl extends ServiceImpl<UserInfMapper, UserInf> impl
 
     @Override
     public RespBean deleteUserInf(String loginname) {
-        if (loginname == null || loginname == "") {
+        if (loginname == null || loginname.trim().equals("")) {
             return RespBean.error("请提供登录名！");
         }
         if (userInfMapper.countUserByLoginName(loginname) <= 0 ) {

@@ -1,10 +1,8 @@
 package com.example.demo.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.demo.entity.RespBean;
 import com.example.demo.entity.UserInf;
 import com.baomidou.mybatisplus.extension.service.IService;
-import java.util.List;
 
 /**
  * <p>
@@ -15,11 +13,9 @@ import java.util.List;
  * @since 2023-02-25
  */
 public interface IUserInfService extends IService<UserInf> {
-    public RespBean getUserList();
+    RespBean insertUserInf(UserInf userInf);
 
-    public RespBean insertUserInf(UserInf userInf);
+    RespBean deleteUserInf(String loginname);
 
-    public RespBean deleteUserInf(String loginname);
-
-    public RespBean updateUserInf(UserInf userInf);
+    RespBean updateUserInf(UserInf userInf);
 }

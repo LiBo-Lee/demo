@@ -18,27 +18,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserInfMapper extends BaseMapper<UserInf> {
     /**
-     * 检测用户登录名是否重复
-     *
-     * @param loginname 用户登录名
-     * @return java.lang.Integer
-     * @author LiBo
-     * @date 2023-02-28 14:20
-     * */
-    Integer countUserByLoginName(@Param("loginname") String loginname);
-
-    /**
-     * 检测用户登录名和密码
-     *
-     * @param loginname 用户登录名
-     * @param password 用户密码
-     * @return java.lang.Integer
-     * @author LiBo
-     * @date 2023-03-03 16:50
-     * */
-    Integer countUserByNP(@Param("loginname") String loginname, @Param("password") String password);
-
-    /**
      * 新增用户信息
      *
      * @param userInf 用户信息
@@ -56,7 +35,7 @@ public interface UserInfMapper extends BaseMapper<UserInf> {
      * @author LiBo
      * @date 2023-03-01 16:27
      * */
-    Integer deleteUserInf(@Param("loginname") String loginname);
+    Integer deleteUserInf(@Param("loginName") String loginName);
 
     /**
      * 更新用户信息
@@ -67,4 +46,16 @@ public interface UserInfMapper extends BaseMapper<UserInf> {
      * @date 2023-03-01 16:27
      * */
     Integer updateUserInf(@Param("userInf") UserInf userInf);
+
+    /**
+     * 更新用户密码（每次更新会自动更新盐值）
+     *
+     * @param loginName 登录名
+     * @param password 登录密码（密文）
+     * @param salt 盐
+     * @return java.lang.Integer
+     * @author LiBo
+     * @date 2023-03-11 14:44
+     * */
+    Integer updatePasswordByLoginName(@Param("loginName") String loginName, @Param("password") String password, @Param("salt") String salt);
 }

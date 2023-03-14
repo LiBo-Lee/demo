@@ -3,28 +3,28 @@
 <mapper namespace="com.example.demo.mapper.UserInfMapper">
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, loginname, password, status, createdate, username
+        id, username, loginname, password, salt, status, createdate, role_id, role_name, pwd_login_limit
     </sql>
-    <select id="countUserByLoginName" resultType="integer">
-        SELECT COUNT(loginname)loginname FROM user_inf
-        WHERE loginname=#{loginname}
-    </select>
-    <select id="countUserByNP" resultType="integer">
-        SELECT COUNT(loginname)loginname FROM user_inf
-        WHERE loginname = #{loginname}
-          AND password = #{password}
-    </select>
     <insert id="insertUserInf" parameterType="com.example.demo.mapper.UserInfMapper">
-        INSERT INTO user_inf(loginname, password, status, createdate, username)
-        VALUES(#{userInf.loginname}, #{userInf.password}, #{userInf.status}, #{userInf.createdate}, #{userInf.username})
+        INSERT INTO user_inf(username, loginname, password, salt, status, createdate, role_id, role_name, pwd_login_limit)
+        VALUES(#{userInf.username}, #{userInf.loginname}, #{userInf.password}, #{userInf.salt}, #{userInf.status}, #{userInf.createdate}, #{userInf.roleId}, #{userInf.roleName}, 0)
     </insert>
     <delete id="deleteUserInf" parameterType="java.lang.String">
-        DELETE FROM user_inf WHERE loginname = #{loginname}
+        DELETE FROM user_inf WHERE loginname = #{loginName}
     </delete>
-    <insert id="updateUserInf" parameterType="com.example.demo.entity.UserInf">
+    <update id="updateUserInf" parameterType="com.example.demo.entity.UserInf">
         UPDATE user_inf
         SET password = #{userInf.password},
-            username = #{userInf.username}
+            salt = #{userInf.salt},
+            username = #{userInf.username},
+            role_id = #{userInf.roleId},
+            role_name = #{userInf.roleName}
         WHERE loginname = #{userInf.loginname}
-    </insert>
+    </update>
+    <update id="updatePasswordByLoginName">
+        UPDATE user_inf
+        SET password = #{password},
+            salt = #{salt},
+        WHERE loginname = #{loginName}
+    </update>
 </mapper>

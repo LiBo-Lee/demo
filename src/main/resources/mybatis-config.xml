@@ -3,6 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="application.properties"/>
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
     <environments default="MySqlDatabase" >
         <environment id="MySqlDatabase" >
             <transactionManager type="JDBC" />
@@ -15,6 +18,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/example/demo/mapper" />
+        <mapper resource="com/example/demo/mapper/*Mapper.xml" />
     </mappers>
 </configuration>

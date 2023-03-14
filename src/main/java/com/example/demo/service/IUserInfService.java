@@ -15,7 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface IUserInfService extends IService<UserInf> {
     RespBean insertUserInf(UserInf userInf);
 
-    RespBean deleteUserInf(String loginname);
+    RespBean deleteUserInf(String loginName);
 
     RespBean updateUserInf(UserInf userInf);
+
+    RespBean updatePasswordByLoginName(String loginName, String oldPassword, String newPassword);
 }

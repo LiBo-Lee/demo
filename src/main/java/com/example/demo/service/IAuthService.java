@@ -8,4 +8,6 @@ import com.example.demo.entity.RespBean;
  **/
 public interface IAuthService {
     RespBean login(String loginname, String password);
+
+    RespBean logout(String loginname, String token);
 }
